@@ -1,17 +1,24 @@
 import { Box, Button, TextField } from "@mui/material";
-import { useQuery } from "react-query";
+import { useState } from "react";
 
-const SearchBar: React.FC<{}> = () => {
-  const fetchSearch = async () => {
-    const response = await fetch("/api/search");
-    const data = await response.json();
-    console.log(data);
-  };
+const SearchBar: React.FC<{ setSearchQuery: any }> = ({ setSearchQuery }) => {
+  const [textFieldValue, setTextFieldValue] = useState("");
 
   return (
     <Box>
-      <TextField variant="outlined" />
-      <Button variant="contained" onClick={fetchSearch}>
+      <TextField
+        variant="outlined"
+        value={textFieldValue}
+        onChange={(event) => {
+          setTextFieldValue(event.target.value);
+        }}
+      />
+      <Button
+        variant="contained"
+        onClick={() => {
+          setSearchQuery(textFieldValue);
+        }}
+      >
         search
       </Button>
     </Box>

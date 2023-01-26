@@ -1,15 +1,15 @@
-import Head from "next/head";
-import styles from "@/styles/Home.module.css";
-import SearchBar from "@/components/SearchBar";
-import { Inter } from "@next/font/google";
-import { useState } from "react";
-import SearchResults from "@/components/SearchResults";
-import { Box, Container } from "@mui/material";
+import Head from "next/head"
+import styles from "@/styles/Home.module.css"
+import SearchBar from "@/components/SearchBar"
+import { Inter } from "@next/font/google"
+import { useState } from "react"
+import SearchResults from "@/components/SearchResults"
+import { Box, Container } from "@mui/material"
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] })
 
 export default function Home() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("")
 
   return (
     <>
@@ -24,5 +24,5 @@ export default function Home() {
         <SearchResults searchQuery={searchQuery} />
       </Container>
     </>
-  );
+  )
 }

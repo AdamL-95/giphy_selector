@@ -1,9 +1,9 @@
 import Head from "next/head"
 import styles from "@/styles/Home.module.css"
-import SearchBar from "@/components/SearchBar"
 import { useState } from "react"
 import SearchResults from "@/components/SearchResults"
 import { Box, Container } from "@mui/material"
+import Header from "@/components/Header"
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -17,7 +17,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container maxWidth="lg">
-        <SearchBar setSearchQuery={setSearchQuery} />
+        <Header setSearchQuery={setSearchQuery} />
         <SearchResults searchQuery={searchQuery} />
       </Container>
     </>

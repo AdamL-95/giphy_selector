@@ -1,5 +1,4 @@
-import { default as Grid } from "@mui/material/Unstable_Grid2/Grid2"
-import Image from "next/image"
+import { default as Grid } from "@mui/material/Unstable_Grid2"
 import { useEffect, useState } from "react"
 
 const SearchResults: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {

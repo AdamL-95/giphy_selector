@@ -13,9 +13,8 @@ const SearchResults: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
         .then((resJSON) => {
           setData(resJSON.data)
           setLoading(false)
+          console.log(resJSON.data)
         })
-      //   const response = await fetch(`/api/search?searchQuery=${searchQuery}`);
-      //   const data = await response.json();
     }
   }, [searchQuery])
 
@@ -35,11 +34,14 @@ const SearchResults: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
           >
             <video
               autoPlay
+              onClick={() => {
+                navigator.clipboard.writeText(gifObject.bitly_url)
+              }}
               loop
               muted
               playsInline
-              src={gifObject.images.original.mp4}
-              style={{ height: 150 }}
+              src={gifObject.images.fixed_height.mp4}
+              style={{ maxWidth: 270, cursor: "pointer" }}
             />
           </Grid>
         )

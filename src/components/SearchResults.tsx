@@ -1,3 +1,4 @@
+import { default as Grid } from "@mui/material/Unstable_Grid2/Grid2"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
@@ -11,7 +12,6 @@ const SearchResults: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
       fetch(`/api/search?searchQuery=${searchQuery}`)
         .then((res) => res.json())
         .then((resJSON) => {
-          console.log(resJSON.data)
           setData(resJSON.data)
           setLoading(false)
         })
@@ -21,19 +21,31 @@ const SearchResults: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
   }, [searchQuery])
 
   return (
-    <div>
+    <Grid container spacing={2}>
       {data.map((gifObject) => {
         return (
-          <Image
-            src={gifObject.images.fixed_width.url}
-            alt="searchResult"
-            key={gifObject.url}
-            width={100}
-            height={100}
-          />
+          <Grid
+            xs={12}
+            sm={6}
+            md={4}
+            lg={3}
+            key={`grid_${gifObject.url}`}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              src={gifObject.images.original.mp4}
+              style={{ height: 150 }}
+            />
+          </Grid>
         )
       })}
-    </div>
+    </Grid>
   )
 }
 

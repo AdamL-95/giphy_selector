@@ -1,9 +1,13 @@
 import { default as Grid } from "@mui/material/Unstable_Grid2"
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
-const SearchResults: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
+const SearchResults: React.FC = () => {
   const [data, setData] = useState([])
   const [isLoading, setLoading] = useState(false)
+  const router = useRouter()
+  const { searchQuery } = router.query
+  console.log(searchQuery)
 
   useEffect(() => {
     setLoading(true)
@@ -13,7 +17,6 @@ const SearchResults: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
         .then((resJSON) => {
           setData(resJSON.data)
           setLoading(false)
-          console.log(resJSON.data)
         })
     }
   }, [searchQuery])

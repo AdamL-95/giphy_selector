@@ -1,8 +1,7 @@
 import { Box } from "@mui/system"
 import SearchBar from "./SearchBar"
 
-const Header: React.FC<{ setSearchQuery: any }> = ({ setSearchQuery }) => {
-  //todo: reformat how to set searchQuery
+const Header: React.FC = () => {
   return (
     <Box
       sx={{
@@ -18,7 +17,7 @@ const Header: React.FC<{ setSearchQuery: any }> = ({ setSearchQuery }) => {
         }}
       >
         <h1>Giphy Selector</h1>
-        <SearchBar setSearchQuery={setSearchQuery} />
+        <SearchBar />
       </Box>
     </Box>
   )

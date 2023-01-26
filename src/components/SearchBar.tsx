@@ -8,9 +8,11 @@ import {
 } from "@mui/material"
 import { useState } from "react"
 import SearchIcon from "@mui/icons-material/Search"
+import { useRouter } from "next/router"
 
-const SearchBar: React.FC<{ setSearchQuery: any }> = ({ setSearchQuery }) => {
+const SearchBar: React.FC = () => {
   const [textFieldValue, setTextFieldValue] = useState("")
+  const router = useRouter()
 
   return (
     <Paper
@@ -32,7 +34,7 @@ const SearchBar: React.FC<{ setSearchQuery: any }> = ({ setSearchQuery }) => {
         type="button"
         aria-label="search"
         onClick={() => {
-          setSearchQuery(textFieldValue)
+          router.push(`/search/${textFieldValue}`)
         }}
       >
         <SearchIcon />

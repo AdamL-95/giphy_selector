@@ -1,25 +1,30 @@
 import { Box } from "@mui/system"
 import SearchBar from "./SearchBar"
+import TopBar from "./TopBar"
 
 const Header: React.FC = () => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
+    <>
+      <TopBar />
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column",
-          textAlign: "center",
+          justifyContent: "center",
+          mb: 5,
         }}
       >
-        <h1>Giphy Selector</h1>
-        <SearchBar />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <h1>The perfect GIF starts here</h1>
+          <SearchBar />
+        </Box>
       </Box>
-    </Box>
+    </>
   )
 }
 export default Header

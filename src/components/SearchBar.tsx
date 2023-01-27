@@ -15,7 +15,8 @@ const SearchBar: React.FC = () => {
       sx={{
         display: "flex",
         alignItems: "center",
-        width: 300,
+        width: [300, 400, 500, 600],
+        flexGrow: 1,
       }}
     >
       <InputBase

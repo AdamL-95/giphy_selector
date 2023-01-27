@@ -1,29 +1,33 @@
-import { Box } from "@mui/system"
+import { AppBar, Box, Toolbar } from "@mui/material"
+import { useRouter } from "next/router"
 import SearchBar from "./SearchBar"
-import TopBar from "./TopBar"
 
 const Header: React.FC = () => {
+  const router = useRouter()
+
   return (
     <>
-      <TopBar />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          mb: 5,
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <h1>The perfect GIF starts here</h1>
-          <SearchBar />
-        </Box>
-      </Box>
+      <AppBar position="static" color="secondary">
+        <Toolbar>
+          <h4
+            onClick={() => {
+              router.push("/")
+            }}
+            style={{ cursor: "pointer", marginRight: "1rem", flexGrow: 1 }}
+          >
+            Giphy Selector
+          </h4>
+          <Box
+            sx={{
+              justifyContent: "center",
+              alignContent: "center",
+              flexGrow: 1,
+            }}
+          >
+            <SearchBar />
+          </Box>
+        </Toolbar>
+      </AppBar>
     </>
   )
 }

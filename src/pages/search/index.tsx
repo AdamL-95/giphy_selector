@@ -30,6 +30,7 @@ const SearchResults: React.FC = () => {
 
   return (
     <>
+      <h2>Showing results for {searchQuery}</h2>
       <CopiedAlert open={alertOpen} handleClose={handleAlertClose} />
       <Grid container spacing={2}>
         {data.map((gifObject) => {

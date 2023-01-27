@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  InputBase,
-  Paper,
-  TextField,
-} from "@mui/material"
+import { IconButton, InputBase, Paper } from "@mui/material"
 import { useState } from "react"
 import SearchIcon from "@mui/icons-material/Search"
 import { useRouter } from "next/router"

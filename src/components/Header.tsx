@@ -1,4 +1,4 @@
-import { AppBar, Box, Toolbar } from "@mui/material"
+import { AppBar, Box, Container, Toolbar } from "@mui/material"
 import { useRouter } from "next/router"
 import SearchBar from "./SearchBar"
 
@@ -8,25 +8,26 @@ const Header: React.FC = () => {
   return (
     <>
       <AppBar position="static" color="secondary">
-        <Toolbar>
-          <h4
-            onClick={() => {
-              router.push("/")
-            }}
-            style={{ cursor: "pointer", marginRight: "1rem", flexGrow: 1 }}
-          >
-            Giphy Selector
-          </h4>
-          <Box
-            sx={{
-              justifyContent: "center",
-              alignContent: "center",
-              flexGrow: 1,
-            }}
-          >
-            <SearchBar />
-          </Box>
-        </Toolbar>
+        <Container maxWidth="lg">
+          <Toolbar style={{ padding: 0 }}>
+            <h4
+              onClick={() => {
+                router.push("/")
+              }}
+              style={{ cursor: "pointer", marginRight: "1rem", flexGrow: 1 }}
+            >
+              Giphy Selector
+            </h4>
+            <Box
+              sx={{
+                justifyContent: "center",
+                alignContent: "center",
+              }}
+            >
+              <SearchBar />
+            </Box>
+          </Toolbar>
+        </Container>
       </AppBar>
     </>
   )

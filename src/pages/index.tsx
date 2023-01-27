@@ -1,3 +1,4 @@
+import { Box } from "@mui/material"
 import Head from "next/head"
 
 export default function Home() {
@@ -9,6 +10,30 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Box>
+        <h1 style={{ textAlign: "center" }}>Find your perfect GIF</h1>
+        {/* <body>Use the search bar to get started</body> */}
+
+        <h3>How to use this site:</h3>
+        <Box>
+          <h5>step 1: </h5>
+          <p>use the search bar in the header to get a list of GIFs</p>
+        </Box>
+        <Box>
+          <h5>step 2: </h5>
+          <p>
+            {
+              "Once you've found you're perfect gif, click on it to copy it to your clipboard"
+            }
+          </p>
+        </Box>
+        <Box>
+          <h5>step 1: </h5>
+          <p>Copy the GIF to any messaging app</p>
+        </Box>
+
+        <h3>Happy GIFing!</h3>
+      </Box>
     </>
   )
 }

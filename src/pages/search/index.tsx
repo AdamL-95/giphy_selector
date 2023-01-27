@@ -7,9 +7,9 @@ const SearchResults: React.FC = () => {
   const [isLoading, setLoading] = useState(false)
   const router = useRouter()
   const { searchQuery } = router.query
-  console.log(searchQuery)
 
   useEffect(() => {
+    console.log(searchQuery)
     setLoading(true)
     if (searchQuery) {
       fetch(`/api/search?searchQuery=${searchQuery}`)
@@ -18,8 +18,14 @@ const SearchResults: React.FC = () => {
           setData(resJSON.data)
           setLoading(false)
         })
+    } else {
+      setData([])
     }
   }, [searchQuery])
+
+  useEffect(() => {
+    console.log("hello")
+  }, [])
 
   return (
     <Grid container spacing={2}>

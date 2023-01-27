@@ -1,7 +1,5 @@
 import Head from "next/head"
 import { useState } from "react"
-import SearchResults from "@/components/SearchResults"
-import { Container } from "@mui/material"
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("")

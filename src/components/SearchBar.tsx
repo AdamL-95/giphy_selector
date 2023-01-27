@@ -34,7 +34,7 @@ const SearchBar: React.FC = () => {
         type="button"
         aria-label="search"
         onClick={() => {
-          router.push(`/search/${textFieldValue}`)
+          router.push(`/search?searchQuery=${textFieldValue}`)
         }}
       >
         <SearchIcon />

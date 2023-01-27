@@ -3,9 +3,15 @@ import { default as Grid } from "@mui/material/Unstable_Grid2"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
+interface gifData {
+  url: any
+  bitly_url: string
+  images: { fixed_height: { mp4: string | undefined } }
+}
+
 const SearchResults: React.FC = () => {
-  const [data, setData] = useState([])
-  const [isLoading, setLoading] = useState(false)
+  const [data, setData] = useState<gifData[]>([])
+  const [isLoading, setLoading] = useState(false) // todo: properly render loading ticker
   const router = useRouter()
   const { searchQuery } = router.query
   const [alertOpen, setAlertOpen] = useState(false)

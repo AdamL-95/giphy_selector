@@ -15,7 +15,6 @@ const SearchResults: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log(searchQuery)
     setLoading(true)
     if (searchQuery) {
       fetch(`/api/search?searchQuery=${searchQuery}`)

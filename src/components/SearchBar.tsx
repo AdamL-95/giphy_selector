@@ -13,6 +13,9 @@ import { useRouter } from "next/router"
 const SearchBar: React.FC = () => {
   const [textFieldValue, setTextFieldValue] = useState("")
   const router = useRouter()
+  const handleSubmitSearch = () => {
+    router.push(`/search?searchQuery=${textFieldValue}`)
+  }
 
   return (
     <Paper
@@ -29,13 +32,16 @@ const SearchBar: React.FC = () => {
         onChange={(event) => {
           setTextFieldValue(event.target.value)
         }}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            handleSubmitSearch()
+          }
+        }}
       />
       <IconButton
         type="button"
         aria-label="search"
-        onClick={() => {
-          router.push(`/search?searchQuery=${textFieldValue}`)
-        }}
+        onClick={handleSubmitSearch}
       >
         <SearchIcon />
       </IconButton>

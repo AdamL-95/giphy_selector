@@ -31,11 +31,13 @@ const SearchBar: React.FC = () => {
             handleSubmitSearch()
           }
         }}
+        inputProps={{ "data-testid": "searchInput" }}
       />
       <IconButton
         type="button"
         aria-label="search"
         onClick={handleSubmitSearch}
+        data-testid="searchButton"
       >
         <SearchIcon />
       </IconButton>

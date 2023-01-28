@@ -1,17 +1,11 @@
 import CopiedAlert from "@/components/CopiedAlert"
 import { default as Grid } from "@mui/material/Unstable_Grid2"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
-
-interface gifData {
-  url: any
-  bitly_url: string
-  images: { fixed_height: { mp4: string | undefined } }
-}
+import { useState } from "react"
+import { MultiResponse } from "giphy-api"
+import useSWR from "swr"
 
 const SearchResults: React.FC = () => {
-  const [data, setData] = useState<gifData[]>([])
-  const [isLoading, setLoading] = useState(false) // todo: properly render loading ticker
   const router = useRouter()
   const { searchQuery } = router.query
   const [alertOpen, setAlertOpen] = useState(false)
@@ -20,26 +14,17 @@ const SearchResults: React.FC = () => {
     setAlertOpen(false)
   }
 
-  useEffect(() => {
-    setLoading(true)
-    if (searchQuery) {
-      fetch(`/api/search?searchQuery=${searchQuery}`)
-        .then((res) => res.json())
-        .then((resJSON) => {
-          setData(resJSON.data)
-          setLoading(false)
-        })
-    } else {
-      setData([])
-    }
-  }, [searchQuery])
+  const { data: searchRes } = useSWR<MultiResponse>(
+    `/api/search?searchQuery=${searchQuery}`
+  )
+  const GifData = searchRes?.data || []
 
   return (
     <>
       <h2>Showing results for {searchQuery}</h2>
       <CopiedAlert open={alertOpen} handleClose={handleAlertClose} />
       <Grid container spacing={2}>
-        {data.map((gifObject) => {
+        {GifData.map((gifObject) => {
           return (
             <Grid
               xs={12}

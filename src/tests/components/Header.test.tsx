@@ -1,6 +1,5 @@
+import Header from "@/components/Header"
 import { fireEvent, render, screen } from "@testing-library/react"
-
-import Header from "./Header"
 
 const routerPush = jest.fn()
 

@@ -2,8 +2,9 @@ import CopiedAlert from "@/components/CopiedAlert"
 import { default as Grid } from "@mui/material/Unstable_Grid2"
 import { useRouter } from "next/router"
 import { useState } from "react"
-import { MultiResponse } from "giphy-api"
-import useSWR from "swr"
+import { MultiResponse, GIFObject } from "giphy-api"
+import useSWRInfinite from "swr/infinite"
+import { Button } from "@mui/material"
 
 const SearchResults: React.FC = () => {
   const router = useRouter()
@@ -14,10 +15,23 @@ const SearchResults: React.FC = () => {
     setAlertOpen(false)
   }
 
-  const { data: searchRes } = useSWR<MultiResponse>(
-    `/api/search?searchQuery=${searchQuery}`
+  const {
+    data: newData,
+    error,
+    size,
+    setSize,
+  } = useSWRInfinite<MultiResponse>(
+    (index) => `/api/search?searchQuery=${searchQuery}&offset=${index * 24}`
   )
-  const GifData = searchRes?.data || []
+
+  const GifData: GIFObject[] = newData
+    ? new Array<GIFObject>().concat(...newData.map((gifs) => gifs.data))
+    : []
+  const isLoadingInitialData = !newData && !error
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && newData && typeof newData[size - 1] === "undefined")
+  const isEmpty = newData?.[0]?.data?.length === 0
 
   return (
     <>
@@ -53,6 +67,13 @@ const SearchResults: React.FC = () => {
           )
         })}
       </Grid>
+      <Button
+        onClick={() => {
+          setSize(size + 1)
+        }}
+      >
+        Load more
+      </Button>
     </>
   )
 }

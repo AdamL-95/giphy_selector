@@ -1,6 +1,5 @@
+import SearchBar from "@/components/SearchBar"
 import { fireEvent, render, screen } from "@testing-library/react"
-import { act, Simulate } from "react-dom/test-utils"
-import SearchBar from "./SearchBar"
 const routerPush = jest.fn()
 
 jest.mock("next/router", () => ({

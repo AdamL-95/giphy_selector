@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react"
-import SearchResults from "."
 import mockSearchData from "./mockSearchData"
 import "@testing-library/jest-dom"
+import SearchResults from "@/pages/search"
 
 const swr = require("swr")
 

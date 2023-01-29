@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import "@testing-library/jest-dom"
 import { act } from "react-dom/test-utils"
-import CopiedAlert from "./CopiedAlert"
+import CopiedAlert from "../../components/CopiedAlert"
 
 const mockHandleClose = jest.fn()
 

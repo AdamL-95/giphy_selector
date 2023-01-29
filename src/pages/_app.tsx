@@ -1,11 +1,11 @@
 import Layout from "@/components/Layout"
 import theme from "@/styles/theme"
 import { CssBaseline, ThemeProvider } from "@mui/material"
-import { Montserrat } from "@next/font/google"
+import { Roboto_Flex } from "@next/font/google"
 import type { AppProps } from "next/app"
 import { SWRConfig } from "swr"
 
-const montserrat = Montserrat({ subsets: ["latin"] })
+const montserrat = Roboto_Flex({ subsets: ["latin"] })
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

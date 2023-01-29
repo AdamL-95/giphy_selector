@@ -31,7 +31,7 @@ const SearchResults: React.FC = () => {
               sm={6}
               md={4}
               lg={3}
-              key={`grid_${gifObject.url}`}
+              key={`${gifObject.url}`}
               display="flex"
               justifyContent="center"
               alignItems="center"
@@ -47,6 +47,7 @@ const SearchResults: React.FC = () => {
                 playsInline
                 src={gifObject.images.fixed_height.mp4}
                 style={{ maxWidth: 270, cursor: "pointer" }}
+                data-testid={`${gifObject.url}`}
               />
             </Grid>
           )

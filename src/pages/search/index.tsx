@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 import { MultiResponse, GIFObject } from "giphy-api"
 import useSWRInfinite from "swr/infinite"
-import { Button } from "@mui/material"
+import { Box, Button, CircularProgress } from "@mui/material"
 
 const SearchResults: React.FC = () => {
   const router = useRouter()
@@ -15,23 +15,22 @@ const SearchResults: React.FC = () => {
     setAlertOpen(false)
   }
 
-  const {
-    data: newData,
-    error,
-    size,
-    setSize,
-  } = useSWRInfinite<MultiResponse>(
+  const { data, error, size, setSize } = useSWRInfinite<MultiResponse>(
     (index) => `/api/search?searchQuery=${searchQuery}&offset=${index * 24}`
   )
 
-  const GifData: GIFObject[] = newData
-    ? new Array<GIFObject>().concat(...newData.map((gifs) => gifs.data))
+  const GifData: GIFObject[] = data
+    ? new Array<GIFObject>().concat(...data.map((gifs) => gifs.data))
     : []
-  const isLoadingInitialData = !newData && !error
+  const isLoadingInitialData = !data && !error
   const isLoadingMore =
     isLoadingInitialData ||
-    (size > 0 && newData && typeof newData[size - 1] === "undefined")
-  const isEmpty = newData?.[0]?.data?.length === 0
+    (size > 0 && data && typeof data[size - 1] === "undefined")
+  const isEmpty = data?.[data.length - 1]?.data?.length === 0
+
+  if (GifData.length === 0) {
+    return <p>No results</p>
+  }
 
   return (
     <>
@@ -67,13 +66,34 @@ const SearchResults: React.FC = () => {
           )
         })}
       </Grid>
-      <Button
-        onClick={() => {
-          setSize(size + 1)
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          py: 3,
         }}
       >
-        Load more
-      </Button>
+        {isLoadingMore ? (
+          <CircularProgress
+            sx={{ justifyContent: "center", display: "flex" }}
+          />
+        ) : (
+          <>
+            {isEmpty ? (
+              <p>no more results</p>
+            ) : (
+              <Button
+                onClick={() => {
+                  setSize(size + 1)
+                }}
+                variant="contained"
+              >
+                Load more
+              </Button>
+            )}
+          </>
+        )}
+      </Box>
     </>
   )
 }

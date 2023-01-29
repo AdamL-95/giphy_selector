@@ -13,7 +13,7 @@ const GifGrid: React.FC<{ gifData: GIFObject[] }> = ({ gifData }) => {
   return (
     <>
       <CopiedAlert open={alertOpen} handleClose={handleAlertClose} />
-      <Grid container spacing={2}>
+      <Grid container spacing={2} rowGap={2}>
         {gifData.map((gifObject) => {
           return (
             <Grid

@@ -2,8 +2,9 @@ import CopiedAlert from "@/components/CopiedAlert"
 import { default as Grid } from "@mui/material/Unstable_Grid2"
 import { useRouter } from "next/router"
 import { useState } from "react"
-import { MultiResponse } from "giphy-api"
-import useSWR from "swr"
+import { MultiResponse, GIFObject } from "giphy-api"
+import useSWRInfinite from "swr/infinite"
+import { Box, Button, CircularProgress } from "@mui/material"
 
 const SearchResults: React.FC = () => {
   const router = useRouter()
@@ -14,10 +15,22 @@ const SearchResults: React.FC = () => {
     setAlertOpen(false)
   }
 
-  const { data: searchRes } = useSWR<MultiResponse>(
-    `/api/search?searchQuery=${searchQuery}`
+  const { data, error, size, setSize } = useSWRInfinite<MultiResponse>(
+    (index) => `/api/search?searchQuery=${searchQuery}&offset=${index * 24}`
   )
-  const GifData = searchRes?.data || []
+
+  const GifData: GIFObject[] = data
+    ? new Array<GIFObject>().concat(...data.map((gifs) => gifs.data))
+    : []
+  const isLoadingInitialData = !data && !error
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && data && typeof data[size - 1] === "undefined")
+  const isEmpty = data?.[data.length - 1]?.data?.length === 0
+
+  if (GifData.length === 0) {
+    return <p>No results</p>
+  }
 
   return (
     <>
@@ -53,6 +66,34 @@ const SearchResults: React.FC = () => {
           )
         })}
       </Grid>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          py: 3,
+        }}
+      >
+        {isLoadingMore ? (
+          <CircularProgress
+            sx={{ justifyContent: "center", display: "flex" }}
+          />
+        ) : (
+          <>
+            {isEmpty ? (
+              <p>no more results</p>
+            ) : (
+              <Button
+                onClick={() => {
+                  setSize(size + 1)
+                }}
+                variant="contained"
+              >
+                Load more
+              </Button>
+            )}
+          </>
+        )}
+      </Box>
     </>
   )
 }

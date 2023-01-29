@@ -3,7 +3,7 @@ import mockSearchData from "./mockSearchData"
 import "@testing-library/jest-dom"
 import SearchResults from "@/pages/search"
 
-const swr = require("swr")
+const swr = require("swr/infinite")
 
 jest.mock("next/router", () => ({
   useRouter() {
@@ -25,9 +25,9 @@ describe("SearchPage", () => {
   })
 
   it("should render all data images from api call", () => {
-    const swrSpy = jest
-      .spyOn(swr, "default")
-      .mockImplementation(() => mockSearchData)
+    const swrSpy = jest.spyOn(swr, "default").mockImplementation(() => ({
+      data: [mockSearchData],
+    }))
     render(<SearchResults />)
     expect(
       screen.getByTestId("https://giphy.com/gifs/test-gw3IWyGkC0rsazTi")
@@ -35,7 +35,9 @@ describe("SearchPage", () => {
     expect(swrSpy).toHaveBeenCalledTimes(1)
   })
   it("should copy GIF url to clipboard when GIF is clicked and show alert", () => {
-    jest.spyOn(swr, "default").mockImplementation(() => mockSearchData)
+    jest.spyOn(swr, "default").mockImplementation(() => ({
+      data: [mockSearchData],
+    }))
     const clipboardSpy = jest.spyOn(navigator.clipboard, "writeText")
     render(<SearchResults />)
     const gifItem = screen.getByTestId(

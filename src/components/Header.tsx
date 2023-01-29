@@ -7,7 +7,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <AppBar position="static" color="secondary">
+      <AppBar position="static">
         <Container maxWidth="lg">
           <Toolbar style={{ padding: 0 }}>
             <h4

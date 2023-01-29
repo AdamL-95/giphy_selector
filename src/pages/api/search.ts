@@ -9,10 +9,11 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const api_key = "5FoJPpL8icr9B00Dig8eRZmlE0rjPfHf"
-  const searchQuery = req.query.searchQuery
+  const { searchQuery, offset } = req.query
   const result = await fetch(
-    `https://api.giphy.com/v1/gifs/search?api_key=${api_key}&q=${searchQuery}&rating=g&limit=24`
+    `https://api.giphy.com/v1/gifs/search?api_key=${api_key}&q=${searchQuery}&rating=g&limit=24&offset=${offset}`
   )
   const data = await result.json()
-  res.status(200).json(data)
+
+  res.status(data.meta.status).json(data)
 }

@@ -1,21 +1,45 @@
-import { Grid } from "@mui/material"
+import { Grid, Popover, Typography } from "@mui/material"
 import { GIFObject } from "giphy-api"
 import { useState } from "react"
-import CopiedAlert from "./CopiedAlert"
 
 const GifGrid: React.FC<{ gifData: GIFObject[]; columns?: number[] }> = ({
   gifData,
   columns = [1, 2, 3, 4],
 }) => {
-  const [alertOpen, setAlertOpen] = useState(false)
+  const [anchorElement, setAnchorElement] = useState<HTMLVideoElement | null>(
+    null
+  )
 
-  const handleAlertClose = () => {
-    setAlertOpen(false)
+  const handleClick = (
+    event: React.MouseEvent<HTMLVideoElement, MouseEvent>
+  ) => {
+    setAnchorElement(event.currentTarget)
+    setTimeout(() => {
+      handleClose()
+    }, 1000)
   }
+
+  const handleClose = () => {
+    setAnchorElement(null)
+  }
+
+  const open = Boolean(anchorElement)
+  const id = open ? "simple-popover" : undefined
 
   return (
     <>
-      <CopiedAlert open={alertOpen} handleClose={handleAlertClose} />
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorElement}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+      >
+        <Typography sx={{ p: 2 }}>Copied to clipboard</Typography>
+      </Popover>{" "}
       <Grid container spacing={2} rowGap={2} columns={columns}>
         {gifData.map((gifObject) => {
           return (
@@ -28,9 +52,9 @@ const GifGrid: React.FC<{ gifData: GIFObject[]; columns?: number[] }> = ({
             >
               <video
                 autoPlay
-                onClick={() => {
+                onClick={(event) => {
                   navigator.clipboard.writeText(gifObject.bitly_url)
-                  setAlertOpen(true)
+                  handleClick(event)
                 }}
                 loop
                 muted

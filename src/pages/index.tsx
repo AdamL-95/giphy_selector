@@ -21,14 +21,14 @@ const Home: React.FC<{ data: GIFObject[] }> = ({ data }) => {
           Find your perfect GIF
         </Typography>
 
-        <Typography variant="h4">How to use this site:</Typography>
-        <Box>
+        <Typography variant="h4">How to use this site</Typography>
+        <Box sx={{ pt: 4 }}>
           <Typography variant="h6">step 1: </Typography>
           <Typography variant="body1">
             use the search bar in the header to get a list of GIFs
           </Typography>
         </Box>
-        <Box>
+        <Box sx={{ pt: 4 }}>
           <Typography variant="h6">step 2: </Typography>
           <Typography variant="body1">
             {
@@ -36,16 +36,18 @@ const Home: React.FC<{ data: GIFObject[] }> = ({ data }) => {
             }
           </Typography>
         </Box>
-        <Box>
+        <Box sx={{ pt: 4 }}>
           <Typography variant="h6">step 3: </Typography>
           <Typography variant="body1">
             Copy the GIF to any messaging app{" "}
           </Typography>
         </Box>
 
-        <h3>Happy GIFing!</h3>
+        <Typography variant="h5" sx={{ py: 5 }}>
+          {"Need inspriation? Here's a few random GIFs to get you started"}
+        </Typography>
+        <GifGrid gifData={data} columns={[1, 2, 3]} />
       </Box>
-      <GifGrid gifData={data} columns={[1, 2, 3]} />
     </>
   )
 }

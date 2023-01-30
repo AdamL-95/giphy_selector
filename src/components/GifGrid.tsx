@@ -14,9 +14,10 @@ const GifGrid: React.FC<{ gifData: GIFObject[]; columns?: number[] }> = ({
     event: React.MouseEvent<HTMLVideoElement, MouseEvent>
   ) => {
     setAnchorElement(event.currentTarget)
+    // Auto close popup after 800ms
     setTimeout(() => {
       handleClose()
-    }, 1000)
+    }, 800)
   }
 
   const handleClose = () => {

@@ -6,7 +6,7 @@ import GifGrid from "@/components/GifGrid"
 import getSearchData from "@/lib/getSearchData"
 import { GetServerSideProps } from "next"
 
-const SearchResults: React.FC<{ initialData: MultiResponse[] }> = ({
+const SearchResults: React.FC<{ initialData?: MultiResponse[] }> = ({
   initialData,
 }) => {
   const router = useRouter()
@@ -17,6 +17,8 @@ const SearchResults: React.FC<{ initialData: MultiResponse[] }> = ({
     { initialSize: 1, fallbackData: initialData }
   )
 
+  // useSWRInfinite returns a list of MultiResponse objects. This concats
+  // all of the responses to one list to be displayed on the screen
   const gifData: GIFObject[] = data
     ? new Array<GIFObject>().concat(...data.map((gifs) => gifs.data))
     : []
@@ -26,6 +28,8 @@ const SearchResults: React.FC<{ initialData: MultiResponse[] }> = ({
     (size > 0 && data && typeof data[size - 1] === "undefined")
   const isEmpty = data?.[data.length - 1]?.data?.length === 0
 
+  // Using server side props for the initial data stops this from
+  // rendering on initial load of a search
   if (gifData.length === 0) {
     return (
       <Typography variant="h5" sx={{ py: 2 }}>

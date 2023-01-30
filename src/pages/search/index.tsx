@@ -12,7 +12,7 @@ const SearchResults: React.FC<{ initialData: MultiResponse[] }> = ({
   const router = useRouter()
   const { searchQuery } = router.query
 
-  const { data, error, size, setSize } = useSWRInfinite<MultiResponse>(
+  const { data, error, size, setSize } = useSWRInfinite(
     (index) => `/api/search?searchQuery=${searchQuery}&offset=${index * 24}`,
     { initialSize: 1, fallbackData: initialData }
   )

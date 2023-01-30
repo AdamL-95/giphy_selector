@@ -24,7 +24,7 @@ const GifGrid: React.FC<{ gifData: GIFObject[]; columns?: number[] }> = ({
   }
 
   const open = Boolean(anchorElement)
-  const id = open ? "simple-popover" : undefined
+  const id = open ? "clipboard-popover" : undefined
 
   return (
     <>

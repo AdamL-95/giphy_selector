@@ -12,7 +12,7 @@ const Home: React.FC<{ data: GIFObject[] }> = ({ data }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box>
+      <Box sx={{ textAlign: "center" }}>
         <Typography
           variant="h2"
           component="h1"
@@ -45,15 +45,7 @@ const Home: React.FC<{ data: GIFObject[] }> = ({ data }) => {
 
         <h3>Happy GIFing!</h3>
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignContent: "center",
-        }}
-      >
-        <GifGrid gifData={data} />
-      </Box>
+      <GifGrid gifData={data} columns={[1, 2, 3]} />
     </>
   )
 }

@@ -3,13 +3,18 @@ import { MultiResponse, GIFObject } from "giphy-api"
 import useSWRInfinite from "swr/infinite"
 import { Box, Button, CircularProgress } from "@mui/material"
 import GifGrid from "@/components/GifGrid"
+import getSearchData from "@/lib/getSearchData"
+import { GetServerSideProps } from "next"
 
-const SearchResults: React.FC = () => {
+const SearchResults: React.FC<{ initialData: MultiResponse[] }> = ({
+  initialData,
+}) => {
   const router = useRouter()
   const { searchQuery } = router.query
 
   const { data, error, size, setSize } = useSWRInfinite<MultiResponse>(
-    (index) => `/api/search?searchQuery=${searchQuery}&offset=${index * 24}`
+    (index) => `/api/search?searchQuery=${searchQuery}&offset=${index * 24}`,
+    { initialSize: 1, fallbackData: initialData }
   )
 
   const gifData: GIFObject[] = data
@@ -59,6 +64,12 @@ const SearchResults: React.FC = () => {
       </Box>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { searchQuery } = context.query
+  const SearchRes = await getSearchData(searchQuery ?? "", "0")
+  return { props: { initialData: [SearchRes] } }
 }
 
 export default SearchResults

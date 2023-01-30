@@ -2,6 +2,8 @@ import { Box, Typography } from "@mui/material"
 import Head from "next/head"
 import { GIFObject } from "giphy-api"
 import GifGrid from "@/components/GifGrid"
+import getRandomData from "@/lib/getRandomData"
+import { GetServerSideProps } from "next"
 
 const Home: React.FC<{ data: GIFObject[] }> = ({ data }) => {
   return (
@@ -52,15 +54,11 @@ const Home: React.FC<{ data: GIFObject[] }> = ({ data }) => {
   )
 }
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   let homeGifs = []
-  const api_key = "5FoJPpL8icr9B00Dig8eRZmlE0rjPfHf"
   for (let i = 0; i < 3; i++) {
-    const result = await fetch(
-      `https://api.giphy.com/v1/gifs/random?api_key=${api_key}&rating=g`
-    )
-    const data = await result.json()
-    homeGifs.push(data.data)
+    const randomGif = await getRandomData()
+    homeGifs.push(randomGif.data)
   }
 
   return { props: { data: homeGifs } }

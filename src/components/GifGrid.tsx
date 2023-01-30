@@ -45,6 +45,7 @@ const GifGrid: React.FC<{ gifData: GIFObject[]; columns?: number[] }> = ({
           return (
             <Grid
               xs={1}
+              item={true}
               key={`${gifObject.url}`}
               display="flex"
               justifyContent="center"

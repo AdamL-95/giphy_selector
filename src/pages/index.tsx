@@ -52,7 +52,7 @@ const Home: React.FC<{ data: GIFObject[] }> = ({ data }) => {
   )
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   let homeGifs = []
   const api_key = "5FoJPpL8icr9B00Dig8eRZmlE0rjPfHf"
   for (let i = 0; i < 3; i++) {

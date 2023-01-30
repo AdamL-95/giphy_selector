@@ -1,7 +1,9 @@
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import Head from "next/head"
+import { GIFObject } from "giphy-api"
+import GifGrid from "@/components/GifGrid"
 
-export default function Home() {
+const Home: React.FC<{ data: GIFObject[] }> = ({ data }) => {
   return (
     <>
       <Head>
@@ -10,30 +12,58 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box>
-        <h1 style={{ textAlign: "center" }}>Find your perfect GIF</h1>
-        {/* <body>Use the search bar to get started</body> */}
+      <Box sx={{ textAlign: "center" }}>
+        <Typography
+          variant="h2"
+          component="h1"
+          sx={{ textAlign: "center", my: 5 }}
+        >
+          Find your perfect GIF
+        </Typography>
 
-        <h3>How to use this site:</h3>
-        <Box>
-          <h5>step 1: </h5>
-          <p>use the search bar in the header to get a list of GIFs</p>
+        <Typography variant="h4">How to use this site</Typography>
+        <Box sx={{ pt: 4 }}>
+          <Typography variant="h6">step 1: </Typography>
+          <Typography variant="body1">
+            use the search bar in the header to get a list of GIFs
+          </Typography>
         </Box>
-        <Box>
-          <h5>step 2: </h5>
-          <p>
+        <Box sx={{ pt: 4 }}>
+          <Typography variant="h6">step 2: </Typography>
+          <Typography variant="body1">
             {
               "Once you've found you're perfect gif, click on it to copy it to your clipboard"
             }
-          </p>
+          </Typography>
         </Box>
-        <Box>
-          <h5>step 1: </h5>
-          <p>Copy the GIF to any messaging app</p>
+        <Box sx={{ pt: 4 }}>
+          <Typography variant="h6">step 3: </Typography>
+          <Typography variant="body1">
+            Copy the GIF to any messaging app{" "}
+          </Typography>
         </Box>
 
-        <h3>Happy GIFing!</h3>
+        <Typography variant="h5" sx={{ py: 5 }}>
+          {"Need inspriation? Here's a few random GIFs to get you started"}
+        </Typography>
+        <GifGrid gifData={data} columns={[1, 2, 3]} />
       </Box>
     </>
   )
 }
+
+export const getStaticProps = async () => {
+  let homeGifs = []
+  const api_key = "5FoJPpL8icr9B00Dig8eRZmlE0rjPfHf"
+  for (let i = 0; i < 3; i++) {
+    const result = await fetch(
+      `https://api.giphy.com/v1/gifs/random?api_key=${api_key}&rating=g`
+    )
+    const data = await result.json()
+    homeGifs.push(data.data)
+  }
+
+  return { props: { data: homeGifs } }
+}
+
+export default Home

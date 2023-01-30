@@ -1,12 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 
-type Data = {
-  name: string
-}
-
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse
 ) {
   const api_key = "5FoJPpL8icr9B00Dig8eRZmlE0rjPfHf"
   const { searchQuery, offset } = req.query

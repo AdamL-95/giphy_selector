@@ -40,7 +40,7 @@ const GifGrid: React.FC<{ gifData: GIFObject[]; columns?: number[] }> = ({
       >
         <Typography sx={{ p: 2 }}>Copied to clipboard</Typography>
       </Popover>{" "}
-      <Grid container spacing={2} rowGap={2} columns={columns}>
+      <Grid container spacing={2} columns={columns}>
         {gifData.map((gifObject) => {
           return (
             <Grid

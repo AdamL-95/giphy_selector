@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import { MultiResponse, GIFObject } from "giphy-api"
 import useSWRInfinite from "swr/infinite"
-import { Box, Button, CircularProgress } from "@mui/material"
+import { Box, Button, CircularProgress, Typography } from "@mui/material"
 import GifGrid from "@/components/GifGrid"
 import getSearchData from "@/lib/getSearchData"
 import { GetServerSideProps } from "next"
@@ -27,12 +27,19 @@ const SearchResults: React.FC<{ initialData: MultiResponse[] }> = ({
   const isEmpty = data?.[data.length - 1]?.data?.length === 0
 
   if (gifData.length === 0) {
-    return <p>No results</p>
+    return (
+      <Typography variant="h5" sx={{ py: 2 }}>
+        {`No Results found for "${searchQuery}"`}
+      </Typography>
+    )
   }
 
   return (
     <>
-      <h2>Showing results for {searchQuery}</h2>
+      <Typography
+        variant="h5"
+        sx={{ py: 2 }}
+      >{`Showing results for "${searchQuery}"`}</Typography>
       <GifGrid gifData={gifData} />
       <Box
         sx={{
@@ -48,7 +55,7 @@ const SearchResults: React.FC<{ initialData: MultiResponse[] }> = ({
         ) : (
           <>
             {isEmpty ? (
-              <p>no more results</p>
+              <Typography variant="body1">no more results </Typography>
             ) : (
               <Button
                 onClick={() => {

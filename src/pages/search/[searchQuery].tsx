@@ -10,7 +10,7 @@ const SearchResults: React.FC<{ initialData: MultiResponse[] }> = ({
   initialData,
 }) => {
   const router = useRouter()
-  const { searchQuery } = router.query
+  const searchQuery = router.query.searchQuery as string
 
   const { data, error, size, setSize } = useSWRInfinite(
     (index) => `/api/search?searchQuery=${searchQuery}&offset=${index * 24}`,
@@ -74,8 +74,8 @@ const SearchResults: React.FC<{ initialData: MultiResponse[] }> = ({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { searchQuery } = context.query
-  const SearchRes = await getSearchData(searchQuery ?? "", "0")
+  const searchQuery = context.query.searchQuery as string
+  const SearchRes = await getSearchData(searchQuery, "0")
   return { props: { initialData: [SearchRes] } }
 }
 

@@ -6,7 +6,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<MultiResponse>
 ) {
-  const { searchQuery, offset } = req.query
-  const data = await getSearchData(searchQuery ?? "", offset ?? "")
+  const searchQuery = req.query.searchQuery as string
+  const offset = req.query.offset as string
+  const data = await getSearchData(searchQuery, offset)
   res.status(data.meta.status).json(data)
 }

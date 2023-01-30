@@ -54,6 +54,7 @@ const Home: React.FC<{ data: GIFObject[] }> = ({ data }) => {
   )
 }
 
+// Render the random gifs from the server
 export const getServerSideProps: GetServerSideProps = async () => {
   let homeGifs = []
   for (let i = 0; i < 3; i++) {

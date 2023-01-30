@@ -1,8 +1,8 @@
 import { MultiResponse } from "giphy-api"
 
 const getSearchData = async (
-  searchQuery: string | string[],
-  offset: string | string[]
+  searchQuery: string,
+  offset: string
 ): Promise<MultiResponse> => {
   const api_key = "5FoJPpL8icr9B00Dig8eRZmlE0rjPfHf"
   const result = await fetch(

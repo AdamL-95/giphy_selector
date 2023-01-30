@@ -7,7 +7,7 @@ const SearchBar: React.FC = () => {
   const [textFieldValue, setTextFieldValue] = useState("")
   const router = useRouter()
   const handleSubmitSearch = () => {
-    router.push(`/search?searchQuery=${textFieldValue}`)
+    router.push(`/search/${textFieldValue}`)
   }
 
   return (

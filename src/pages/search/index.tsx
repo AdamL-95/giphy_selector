@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material"
 
-const SearchResults: React.FC = () => {
+const DefaultSearchResults: React.FC = () => {
   return (
     <Typography variant="h5" sx={{ py: 2 }}>
       {`Invalid search, please try again`}
@@ -8,4 +8,4 @@ const SearchResults: React.FC = () => {
   )
 }
 
-export default SearchResults
+export default DefaultSearchResults

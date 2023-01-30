@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react"
 import mockSearchData from "./mockSearchData"
 import "@testing-library/jest-dom"
-import SearchResults from "@/pages/search"
+import SearchResults from "@/pages/search/[searchQuery]"
 
 const swr = require("swr/infinite")
 
@@ -46,6 +46,6 @@ describe("SearchPage", () => {
     fireEvent.click(gifItem)
     expect(clipboardSpy).toHaveBeenCalledTimes(1)
     expect(clipboardSpy).toHaveBeenCalledWith("http://gph.is/SkI3MM")
-    expect(screen.queryByText("Link copied to clipboard")).toBeInTheDocument()
+    expect(screen.queryByText("Copied to clipboard")).toBeInTheDocument()
   })
 })

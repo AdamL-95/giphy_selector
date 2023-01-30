@@ -45,15 +45,20 @@ const Home: React.FC<{ data: GIFObject[] }> = ({ data }) => {
           </Typography>
         </Box>
 
-        <Typography variant="h5" sx={{ py: 5 }}>
-          {"Need inspriation? Here's a few random GIFs to get you started"}
-        </Typography>
-        <GifGrid gifData={data} columns={[1, 2, 3]} />
+        {data.length > 0 && (
+          <>
+            <Typography variant="h5" sx={{ py: 5 }}>
+              {"Need inspriation? Here's a few random GIFs to get you started"}
+            </Typography>
+            <GifGrid gifData={data} columns={[1, 2, 3]} />
+          </>
+        )}
       </Box>
     </>
   )
 }
 
+// Render the random gifs from the server
 export const getServerSideProps: GetServerSideProps = async () => {
   let homeGifs = []
   for (let i = 0; i < 3; i++) {

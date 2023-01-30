@@ -1,8 +1,9 @@
 import { Box, Typography } from "@mui/material"
 import Head from "next/head"
-import { SingleResponse } from "giphy-api"
+import { GIFObject } from "giphy-api"
+import GifGrid from "@/components/GifGrid"
 
-const Home: React.FC<{ data: SingleResponse[] }> = ({ data }) => {
+const Home: React.FC<{ data: GIFObject[] }> = ({ data }) => {
   return (
     <>
       <Head>
@@ -44,25 +45,15 @@ const Home: React.FC<{ data: SingleResponse[] }> = ({ data }) => {
 
         <h3>Happy GIFing!</h3>
       </Box>
-      <>
-        {data.map((gifObject) => {
-          return (
-            <video
-              key={gifObject.data.url}
-              autoPlay
-              onClick={() => {
-                navigator.clipboard.writeText(gifObject.data.bitly_url)
-              }}
-              loop
-              muted
-              playsInline
-              src={gifObject.data.images.fixed_height.mp4}
-              style={{ maxWidth: 270, cursor: "pointer" }}
-              data-testid={`${gifObject.data.url}`}
-            />
-          )
-        })}
-      </>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "center",
+        }}
+      >
+        <GifGrid gifData={data} />
+      </Box>
     </>
   )
 }
@@ -75,7 +66,7 @@ export const getStaticProps = async () => {
       `https://api.giphy.com/v1/gifs/random?api_key=${api_key}&rating=g`
     )
     const data = await result.json()
-    homeGifs.push(data)
+    homeGifs.push(data.data)
   }
 
   return { props: { data: homeGifs } }
